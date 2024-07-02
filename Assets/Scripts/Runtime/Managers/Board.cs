@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Board : MonoBehaviour
@@ -14,6 +13,8 @@ public class Board : MonoBehaviour
     void Awake()
     {
         TouchEvents.OnElementTapped += TileTapped;
+        
+        PrepareTiles();
     }
 
     void OnDestroy()
