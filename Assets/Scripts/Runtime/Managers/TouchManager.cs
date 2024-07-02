@@ -5,7 +5,6 @@ using UnityEngine;
 public class TouchManager : MonoBehaviour
 {
     [SerializeField] Camera cam;
-    [SerializeField] string collisionTag;
     bool _canTouch;
 
     void Start()
@@ -29,19 +28,21 @@ public class TouchManager : MonoBehaviour
             var hit = Physics2D.OverlapPoint(cam.ScreenToWorldPoint(pos));
             if (CanTouch(hit))
             {
-                //var selectedCard = hit.gameObject.GetComponent<Card>();
-                //TouchEvents.OnCardTapped?.Invoke(selectedCard);
+                if (hit.gameObject.TryGetComponent(out ITouchable selectedElement))
+                {
+                    TouchEvents.OnElementTapped?.Invoke(selectedElement);
+                }
             }
             else
             {
-                //TouchEvents.OnEmptyTapped?.Invoke();
+                TouchEvents.OnEmptyTapped?.Invoke();
             }
         }
     }
 
     bool CanTouch(Collider2D hit)
     {
-        return hit != null && hit.CompareTag(collisionTag);
+        return hit != null;
     }
 
     IEnumerator WaitForTouch_Cor()
@@ -60,5 +61,5 @@ public static class TouchEvents
 
 public interface ITouchable
 {
-    
+    GameObject gameObject { get; }
 }

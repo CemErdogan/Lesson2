@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Board : MonoBehaviour
@@ -10,6 +11,16 @@ public class Board : MonoBehaviour
     
     public Tile[] Tiles { get; private set; }
 
+    void Awake()
+    {
+        TouchEvents.OnElementTapped += TileTapped;
+    }
+
+    void OnDestroy()
+    {
+        TouchEvents.OnElementTapped -= TileTapped;
+    }
+
     void PrepareTiles()
     {
         var tileCount = 5;
@@ -19,5 +30,10 @@ public class Board : MonoBehaviour
         {
             Tiles[i] = Instantiate(tilePrefab, tileParent);
         }
+    }
+
+    void TileTapped(ITouchable touchable)
+    {
+        var tappedTile = touchable.gameObject.GetComponent<Tile>();
     }
 }
