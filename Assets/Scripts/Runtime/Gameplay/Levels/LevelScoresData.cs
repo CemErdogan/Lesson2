@@ -1,5 +1,5 @@
 [System.Serializable]
-public struct LevelScoresData
+public struct LevelScoresData 
 {
     public int index;
     public string title;
