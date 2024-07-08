@@ -1,15 +1,25 @@
+using System;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
    [SerializeField] TextAsset[] levelFiles;
-   LevelData[] _levelData; // Jsondan okuduğumuz
-   LevelSaveData _levelSaveData; // Level seçim UI için düzenlenmiş hali
+   LevelData[] _levelData; 
+   LevelSaveData _levelSaveData;
 
    void Awake()
    {
       ReadLevels();
       Load();
+
+      LevelEvents.OnLevelWin += Save_Callback;
+      LevelEvents.OnLevelDataNeeded += LevelDataNeeded_Callback;
+   }
+
+   void OnDestroy()
+   {
+      LevelEvents.OnLevelWin -= Save_Callback;
+      LevelEvents.OnLevelDataNeeded -= LevelDataNeeded_Callback;
    }
 
    void ReadLevels()
@@ -47,10 +57,15 @@ public class LevelManager : MonoBehaviour
       }
    }
    
-   void Save(CompleteData completeData)
+   void Save_Callback(CompleteData completeData)
    {
       _levelSaveData.Data[completeData.Index + 1].isUnlocked = true;
       _levelSaveData.Data[completeData.Index].highScore = completeData.Score;
       DataHandler.Save(_levelSaveData, DataKeys.LevelScoreDataKey);
+   }
+
+   void LevelDataNeeded_Callback()
+   {
+      LevelEvents.OnSpawnLevelSelectionButtons?.Invoke(_levelSaveData.Data);
    }
 }
