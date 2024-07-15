@@ -508,6 +508,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f657fcd7fea48a88d9c58b51b212552, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lockIcon: {fileID: 86826429170789120}
+  playText: {fileID: 8153677283583610783}
+  levelInfoText: {fileID: 2257485261175343193}
+  playButton: {fileID: 336104705350154861}
 --- !u!1 &8153677283583610783
 GameObject:
   m_ObjectHideFlags: 0
