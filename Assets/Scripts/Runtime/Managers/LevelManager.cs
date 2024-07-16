@@ -12,14 +12,21 @@ public class LevelManager : MonoBehaviour
       ReadLevels();
       Load();
 
+      LevelEvents.OnLevelSelected += LevelSelected;
       LevelEvents.OnLevelWin += Save_Callback;
       LevelEvents.OnLevelDataNeeded += LevelDataNeeded_Callback;
    }
 
    void OnDestroy()
    {
+      LevelEvents.OnLevelSelected -= LevelSelected;
       LevelEvents.OnLevelWin -= Save_Callback;
       LevelEvents.OnLevelDataNeeded -= LevelDataNeeded_Callback;
+   }
+   
+   void LevelSelected(int index)
+   {
+      
    }
 
    void ReadLevels()
