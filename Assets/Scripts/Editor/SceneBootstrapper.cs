@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -57,8 +58,33 @@ public class SceneBootstrapper
         }
     }
 
-    static bool IsSceneInBuildSettings(string bootstrapScene)
+    static bool IsSceneInBuildSettings(string scenePath)
     {
-        throw new NotImplementedException();
+        return !string.IsNullOrEmpty(scenePath)
+               && EditorBuildSettings.scenes.Any(scene => scene.path == scenePath);
+    }
+    
+    [MenuItem(LoadBootstrapMenu)]
+    static void EnableBootstrapper()
+    {
+        ShouldLoadBootstrapScene = true;
+    }
+    
+    [MenuItem(DontLoadBootstrapMenu)]
+    static void DisableBootstrapper()
+    {
+        ShouldLoadBootstrapScene = false;
+    }
+    
+    [MenuItem(LoadBootstrapMenu, true)]
+    static bool ValidateEnableBootstrapper()
+    {
+        return !ShouldLoadBootstrapScene;
+    }
+    
+    [MenuItem(DontLoadBootstrapMenu, true)]
+    static bool ValidateDisableBootstrapper()
+    {
+        return ShouldLoadBootstrapScene;
     }
 }
