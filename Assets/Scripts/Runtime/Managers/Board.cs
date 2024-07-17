@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using UnityEngine;
 
 public class Board : MonoBehaviour
@@ -38,5 +40,21 @@ public class Board : MonoBehaviour
     void TileTapped(ITouchable touchable)
     {
         var tappedTile = touchable.gameObject.GetComponent<Tile>();
+        
+        if(!CanTap(tappedTile)) return;
+        
+        
+    }
+    
+    bool CanTap(Tile tile)
+    {
+        return tile.SubmitBlock == null
+            && IsVisible(tile);
+    }
+    
+    bool IsVisible(Tile tile)
+    {
+        return Tiles.All(t => t.GetChildren() == null 
+                              || Array.IndexOf(t.GetChildren(), tile.GetID()) == -1);
     }
 }

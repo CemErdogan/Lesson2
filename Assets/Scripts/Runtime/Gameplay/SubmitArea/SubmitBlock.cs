@@ -14,13 +14,15 @@ public class SubmitBlock : MonoBehaviour
             if (_tile != null)
             {
                 _tile.SubmitBlock = this;
-                // tile attached
+                GameEvents.OnTileAttached?.Invoke(this, Character);
             }
             else
             {
-                // tile removed
+                GameEvents.OnTileRemoved?.Invoke(this);
             }
         }
     }
+    public string Character => _tile.GetCharacter();
+    public bool IsEmpty => Tile == null;
     Tile _tile;
 }
