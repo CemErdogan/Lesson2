@@ -31,7 +31,13 @@ public class SceneLoader : MonoBehaviour
     {
         StartCoroutine(LoadSceneAdditive(metaSceneAsset.Asset));
     }
-
+    
+    [Button]
+    void ReloadGameScene()
+    {
+        StartCoroutine(UnloadActiveSceneThenLoadScene(SceneManager.GetActiveScene().name));
+    }
+    
     [Button]
     void LoadGameScene()
     {
