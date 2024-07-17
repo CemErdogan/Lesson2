@@ -2,5 +2,5 @@
 public struct LevelData
 {
     public string title;
-    public Tile[] tile;
+    public TileData[] tiles;
 }

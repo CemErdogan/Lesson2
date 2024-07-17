@@ -4,6 +4,7 @@ public class Board : MonoBehaviour
 {
     [Header("Project Dependency")]
     [SerializeField] Tile tilePrefab;
+    [SerializeField] LevelSelectionSO levelSelectionSo;
     
     [Header("Scene Dependency")]
     [SerializeField] Transform tileParent;
@@ -24,12 +25,13 @@ public class Board : MonoBehaviour
 
     void PrepareTiles()
     {
-        var tileCount = 5;
-        Tiles = new Tile[tileCount]; //todo: change with level tile amount
+        var tileCount = levelSelectionSo.levelData.tiles.Length;
+        Tiles = new Tile[tileCount];
 
         for (int i = 0; i < tileCount; i++)
         {
             Tiles[i] = Instantiate(tilePrefab, tileParent);
+            Tiles[i].Prepare(levelSelectionSo.levelData.tiles[i]);
         }
     }
 
