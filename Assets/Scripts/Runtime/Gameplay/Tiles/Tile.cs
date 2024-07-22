@@ -1,7 +1,9 @@
+using TMPro;
 using UnityEngine;
 
 public class Tile : MonoBehaviour, ITouchable
 {
+    [SerializeField] TextMeshPro tmp;
     public SubmitBlock SubmitBlock
     {
         get => _submitBlock;
@@ -18,12 +20,15 @@ public class Tile : MonoBehaviour, ITouchable
         }
     }
     private SubmitBlock _submitBlock;
+    Vector3 _basePos;
     TileData _tileData;
     
     public void Prepare(TileData tileData)
     {
         _tileData = tileData;
         gameObject.name = $"Tile_{_tileData.id}_{_tileData.character}";
+        SetPosition(_tileData.position);
+        SetCharacterText(_tileData.character);
     }
     
     public string GetCharacter()
@@ -41,5 +46,16 @@ public class Tile : MonoBehaviour, ITouchable
     public int GetID()
     {
         return _tileData.id;
+    }
+
+    private void SetPosition(Vector3 newPos)
+    {
+        transform.position = newPos;
+        _basePos = transform.position;
+    }
+
+    private void SetCharacterText(string character)
+    {
+        tmp.text = character;
     }
 }
