@@ -50,6 +50,7 @@ public class Board : MonoBehaviour
         if (!submitManager.HasEmptyBlock()) return;
         
         var emptyBlock = submitManager.GetFirstEmptyBlock();
+        //todo: implement invoker locig
     }
     
     bool CanTap(Tile tile)

@@ -1,7 +1,8 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-public class Tile : MonoBehaviour, ITouchable
+public class Tile : MonoBehaviour, ITouchable, ITileCommand
 {
     [SerializeField] TextMeshPro tmp;
     public SubmitBlock SubmitBlock
@@ -29,6 +30,22 @@ public class Tile : MonoBehaviour, ITouchable
         gameObject.name = $"Tile_{_tileData.id}_{_tileData.character}";
         SetPosition(_tileData.position);
         SetCharacterText(_tileData.character);
+    }
+    
+    public void Execute(SubmitBlock submitBlock)
+    {
+        SubmitBlock = submitBlock;
+
+        DOTween.Kill(transform);
+
+        transform.DOLocalMove(submitBlock.transform.position, .5f)
+            .SetSpeedBased(true)
+            .SetEase(Ease.OutSine);
+    }
+
+    public void Undo()
+    {
+        
     }
     
     public string GetCharacter()
