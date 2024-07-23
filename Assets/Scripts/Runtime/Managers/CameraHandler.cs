@@ -22,6 +22,10 @@ public class CameraHandler : MonoBehaviour
         yield return null;
 
         blockParent.position = new Vector3(GetMeanTileX(), GetTopTileY() + offset, GetMeanTileZ());
+
+        yield return null;
+
+        targetGroup.enabled = false;
     }
 
     void OnDestroy()

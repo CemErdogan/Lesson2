@@ -15,20 +15,23 @@ public class Board : MonoBehaviour
     [SerializeField] SubmitManager submitManager;
     
     public Tile[] Tiles { get; private set; }
+    private TileCommandInvoker _tileCommandInvoker;
 
-    void Awake()
+    private void Awake()
     {
+        _tileCommandInvoker = new TileCommandInvoker();
+        
         TouchEvents.OnElementTapped += TileTapped;
         
         PrepareTiles();
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
         TouchEvents.OnElementTapped -= TileTapped;
     }
 
-    void PrepareTiles()
+    private void PrepareTiles()
     {
         var tileCount = levelSelectionSo.levelData.tiles.Length;
         Tiles = new Tile[tileCount];
@@ -42,7 +45,7 @@ public class Board : MonoBehaviour
         GameEvents.OnTilesSpawned?.Invoke(Tiles);
     }
 
-    void TileTapped(ITouchable touchable)
+    private void TileTapped(ITouchable touchable)
     {
         var tappedTile = touchable.gameObject.GetComponent<Tile>();
         
@@ -50,16 +53,16 @@ public class Board : MonoBehaviour
         if (!submitManager.HasEmptyBlock()) return;
         
         var emptyBlock = submitManager.GetFirstEmptyBlock();
-        //todo: implement invoker locig
+        _tileCommandInvoker.AddCommand(tappedTile, emptyBlock);
     }
     
-    bool CanTap(Tile tile)
+    private bool CanTap(Tile tile)
     {
         return tile.SubmitBlock == null
             && IsVisible(tile);
     }
     
-    bool IsVisible(Tile tile)
+    public bool IsVisible(Tile tile)
     {
         return Tiles.All(t => t.GetChildren() == null 
                               || Array.IndexOf(t.GetChildren(), tile.GetID()) == -1);
