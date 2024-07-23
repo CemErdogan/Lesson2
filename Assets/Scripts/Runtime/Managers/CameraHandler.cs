@@ -3,6 +3,7 @@ using System.Linq;
 using Cinemachine;
 using UnityEngine;
 
+[DefaultExecutionOrder(-999)]
 public class CameraHandler : MonoBehaviour
 {
     [SerializeField] CinemachineTargetGroup targetGroup;
