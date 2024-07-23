@@ -1156,6 +1156,7 @@ GameObject:
   - component: {fileID: 897781688}
   - component: {fileID: 897781687}
   - component: {fileID: 897781689}
+  - component: {fileID: 897781690}
   m_Layer: 0
   m_Name: UndoButton
   m_TagString: Untagged
@@ -1295,6 +1296,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &897781690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 897781683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a752c27d5bc740cb8c8434cacab3647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 897781689}
+  board: {fileID: 2054173918}
 --- !u!1 &1073829228
 GameObject:
   m_ObjectHideFlags: 0

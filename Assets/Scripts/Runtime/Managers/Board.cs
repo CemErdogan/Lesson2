@@ -14,6 +14,7 @@ public class Board : MonoBehaviour
     [SerializeField] Transform tileParent;
     [SerializeField] SubmitManager submitManager;
     
+    public TileCommandInvoker TileCommandInvoker => _tileCommandInvoker;
     public Tile[] Tiles { get; private set; }
     private TileCommandInvoker _tileCommandInvoker;
 
@@ -43,6 +44,7 @@ public class Board : MonoBehaviour
         }
         
         GameEvents.OnTilesSpawned?.Invoke(Tiles);
+        GameEvents.OnSearchVisibleTiles?.Invoke();
     }
 
     private void TileTapped(ITouchable touchable)
