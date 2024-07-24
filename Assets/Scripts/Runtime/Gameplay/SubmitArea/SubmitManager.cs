@@ -5,6 +5,7 @@ using UnityEngine;
 public class SubmitManager : MonoBehaviour
 {
     [SerializeField] SubmitBlock[] submitBlocks;
+    [SerializeField] private WordManager wordManager;
     public SubmitBlock[] SubmitBlocks => submitBlocks;
 
     private void Awake()
@@ -33,14 +34,14 @@ public class SubmitManager : MonoBehaviour
     {
         var nonEmptyBlocks = submitBlocks.Where(sb => !sb.IsEmpty);
         var combinedWord = string.Join("", nonEmptyBlocks.Select(sb => sb.Character));
-        //todo: word manager set current word
+        wordManager.SetCurrentWord(combinedWord);
     }
     
     private void OnWordRemovedCallback(SubmitBlock submitBlock)
     {
         var nonEmptyBlocks = submitBlocks.Where(sb => !sb.IsEmpty);
         var combinedWord = string.Join("", nonEmptyBlocks.Select(sb => sb.Character));
-        //todo: word manager set current word
+        wordManager.SetCurrentWord(combinedWord);
     }
 
     private void OnWordSubmittedCallback()
