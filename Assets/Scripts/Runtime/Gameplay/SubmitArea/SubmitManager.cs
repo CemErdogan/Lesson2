@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using UnityEngine;
 
@@ -12,12 +11,14 @@ public class SubmitManager : MonoBehaviour
     {
         GameEvents.OnTileAttached += OnWordAttachedCallback;
         GameEvents.OnTileRemoved += OnWordRemovedCallback;
+        GameEvents.OnWordSubmitted += OnWordSubmittedCallback;
     }
 
     private void OnDestroy()
     {
         GameEvents.OnTileAttached -= OnWordAttachedCallback;
         GameEvents.OnTileRemoved -= OnWordRemovedCallback;
+        GameEvents.OnWordSubmitted -= OnWordSubmittedCallback;
     }
 
     public bool HasEmptyBlock()
@@ -50,7 +51,7 @@ public class SubmitManager : MonoBehaviour
         {
             if (!block.IsEmpty)
             {
-                //todo: clear
+                block.Tile.Clear();
             }
         }
     }

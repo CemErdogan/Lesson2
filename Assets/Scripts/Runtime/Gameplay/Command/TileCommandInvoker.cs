@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class TileCommandInvoker
 {
-    readonly Stack<ITileCommand> _commands = new();
+    private readonly Stack<ITileCommand> _commands = new();
     
     public void AddCommand(ITileCommand command, SubmitBlock block)
     {
