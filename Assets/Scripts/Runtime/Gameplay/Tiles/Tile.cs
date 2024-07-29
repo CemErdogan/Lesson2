@@ -45,6 +45,7 @@ public class Tile : MonoBehaviour, ITouchable, ITileCommand
             .SetSpeedBased(true)
             .SetEase(tileStats.executeEase);
         
+        AudioManager.Instance.PlaySound("Swoosh");
         GameEvents.OnSearchVisibleTiles?.Invoke();
     }
 
@@ -58,9 +59,11 @@ public class Tile : MonoBehaviour, ITouchable, ITileCommand
             SubmitBlock = null;
         }
         
+        AudioManager.Instance.PlaySound("Swoosh", .5f);
         transform.DOMove(_basePos, tileStats.executeSpeed * 2)
             .SetSpeedBased(true)
             .SetEase(tileStats.executeEase);
+        
         
         GameEvents.OnSearchVisibleTiles?.Invoke();
     }
